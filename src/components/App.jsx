@@ -26,21 +26,25 @@ export class App extends Component {
   };
 
   componentDidUpdate(_, prevState) {
-    if (
+    const orMakeRequest =
       prevState.searchImage !== this.state.searchImage ||
-      prevState.page !== this.state.page
-    ) {
+      prevState.page !== this.state.page;
+
+    const showError = prevState.error !== this.state.error;
+
+    const didYouShowAllImages =
+      this.state.page === this.state.totalPages &&
+      prevState.status === STATUSES.pending;
+
+    if (orMakeRequest) {
       this.addImages();
     }
 
-    if (prevState.error !== this.state.error) {
+    if (showError) {
       toast.error(`Something went wrong! ${this.state.error}`);
     }
 
-    if (
-      this.state.page === this.state.totalPages &&
-      prevState.status === STATUSES.pending
-    ) {
+    if (didYouShowAllImages) {
       toast.success(
         'Sorry, there are no more images matching your search query.'
       );
@@ -87,16 +91,16 @@ export class App extends Component {
   };
 
   render() {
-    const { images, page, totalPages, showModal, largeImageURL, tags } =
+    const { images, page, totalPages, showModal, largeImageURL, tags, status } =
       this.state;
-    const showLoadMore =
-      this.state.status === STATUSES.success && page !== totalPages;
+
+    const showLoadMore = status === STATUSES.success && page !== totalPages;
 
     return (
       <div className={css.main}>
         <Searchbar onSubmit={this.handleSubmit} />
         <ImageGallery images={images} onClickModal={this.openModal} />
-        {this.state.status === STATUSES.pending && <Loader />}
+        {status === STATUSES.pending && <Loader />}
         {showModal && (
           <Modal
             imgUrl={largeImageURL}
