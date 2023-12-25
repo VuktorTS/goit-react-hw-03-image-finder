@@ -89,6 +89,7 @@ export class App extends Component {
 
   handleSubmit = query => {
     if (this.state.searchImage === query) {
+      toast.success('You are already seeing images for this request.');
       return;
     }
     this.setState({ searchImage: query, images: [], page: 1 });
