@@ -6,7 +6,7 @@ export class Modal extends Component {
     window.addEventListener('keydown', this.onClickESC);
   }
 
-  componentDidUpdate() {
+  componentWillUnmount() {
     window.removeEventListener('keydown', this.onClickESC);
   }
 
