@@ -52,7 +52,6 @@ export class App extends Component {
   }
 
   addImages = async () => {
-    console.log('reqvest');
     const { searchImage, page } = this.state;
 
     try {
