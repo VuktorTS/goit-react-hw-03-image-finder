@@ -52,6 +52,7 @@ export class App extends Component {
   }
 
   addImages = async () => {
+    console.log('reqvest');
     const { searchImage, page } = this.state;
 
     try {
@@ -87,6 +88,9 @@ export class App extends Component {
   };
 
   handleSubmit = query => {
+    if (this.state.searchImage === query) {
+      return;
+    }
     this.setState({ searchImage: query, images: [], page: 1 });
   };
 
