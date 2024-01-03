@@ -46,7 +46,7 @@ export class App extends Component {
 
     if (didYouShowAllImages) {
       toast.success(
-        'Sorry, there are no more images matching your search query.'
+        'These are all the images we found for you.'
       );
     }
   }
